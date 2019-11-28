@@ -1,0 +1,16 @@
+#################
+### Problem:
+# Two number sum
+# EX: [1,5,7,8,2,0] and n=7
+# Result : [(5,2),(7,0)]
+#################
+
+def sumofn(listA, n):
+    return([(listA[i],j) for i in range(len(listA)) for j in listA[i+1:] if ((listA[i]+j == n) and ((listA[i] != n) or (j!=n)))])
+
+# TestRun:
+a = [1,2,3,-2,4,5,9,8,6,2,3,7]
+b = 7
+
+z = sumofn(a,b)
+print(z)
