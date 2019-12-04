@@ -1,0 +1,60 @@
+def findMaxSum(arrayA):
+    arrayB = arrayA[:]
+    arrayB.sort()
+    elemFound = False
+    valIndex = len(arrayA)
+       
+    if arrayA == arrayB:
+        return(arrayA, product_sum(arrayA))
+    
+    if arrayB.count(arrayB[-1]) > 1:
+        if arrayA.index(arrayB[-1]) != len(arrayA):
+            arrayA.insert(len(arrayA)-1, arrayA.pop(arrayA.index(arrayB[-1])))
+        else:
+            arrayA.insert(len(arrayA)-1, arrayA.pop(len(arrayA) - arrayA[::-1].index(arrayB[-1])-1))
+    else:
+        arrayA.remove(arrayB[-1])
+        arrayA.insert(len(arrayA), arrayB[-1])
+    return(arrayA, product_sum(arrayA))
+
+def findMinSum(arrayA):
+    arrayB = arrayA[:]
+    arrayB.sort()
+    elemFound = False
+    valIndex = len(arrayA)
+        
+    if arrayA == arrayB:
+        return(arrayA,product_sum(arrayA))
+       
+    if arrayB.count(arrayB[0]) > 1:
+        if arrayA.index(arrayB[0]) != 0:
+            arrayA.insert(0, arrayA.pop(arrayA.index(arrayB[0])))
+        else:
+            arrayA.insert(0, arrayA.pop(len(arrayA) - arrayA[::-1].index(arrayB[0])-1))
+    else:
+        arrayA.remove(arrayB[0])
+        arrayA.insert(0, arrayB[0])
+    return(arrayA, product_sum(arrayA))
+
+def product_sum(arrayA):
+    temp = 0
+    for i in range(1, len(arrayA)+1):
+        temp = ((i*arrayA[i-1]) + temp) 
+    return temp
+
+arrayA = [9,2,7,8,1,1,2,3]
+
+if len(arrayA) == 0:
+    print("Its and empty array")
+elif len(arrayA) == 1:
+    print("Array has only one item in list. Total sum_product is: {}".format(arrayA[0]))
+else:
+    newArrayA, maxSum = findMaxSum(arrayA)
+    newArrayA1, minSum = findMinSum(arrayA)
+    
+    if maxSum > minSum:
+        print("New Array is: {a} and sum of product for the same is: {b}".format(a=newArrayA, b=maxSum))
+    else:
+        print("New Array is: {a} and sum of product for the same is: {b}".format(a=newArrayA1, b=minSum))
+        
+ ### New Array is: [1, 2, 7, 8, 1, 2, 3, 9] and sum of product for the same is: 168 ###
