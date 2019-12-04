@@ -1,8 +1,6 @@
 def findMaxSum(arrayA):
     arrayB = arrayA[:]
     arrayB.sort()
-    elemFound = False
-    valIndex = len(arrayA)
        
     if arrayA == arrayB:
         return(arrayA, product_sum(arrayA))
@@ -20,8 +18,6 @@ def findMaxSum(arrayA):
 def findMinSum(arrayA):
     arrayB = arrayA[:]
     arrayB.sort()
-    elemFound = False
-    valIndex = len(arrayA)
         
     if arrayA == arrayB:
         return(arrayA,product_sum(arrayA))
