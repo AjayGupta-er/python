@@ -45,8 +45,10 @@ if len(arrayA) == 0:
 elif len(arrayA) == 1:
     print("Array has only one item in list. Total sum_product is: {}".format(arrayA[0]))
 else:
-    newArrayA, maxSum = findMaxSum(arrayA)
-    newArrayA1, minSum = findMinSum(arrayA)
+    newArrrayA = arrayA[:]
+    newArrayA1 = arrayA[:]
+    newArrayA, maxSum = findMaxSum(newArrrayA)
+    newArrayA1, minSum = findMinSum(newArrayA1)
     
     if maxSum > minSum:
         print("New Array is: {a} and sum of product for the same is: {b}".format(a=newArrayA, b=maxSum))
