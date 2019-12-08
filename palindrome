@@ -1,0 +1,25 @@
+def palinStList(a):
+    palind = True
+    for i in range(int(len(a)/2)):
+        if a[i] != a[(len(a)-1) - i]:
+            palind = False
+            return(palind)
+    return(palind)
+     
+isPalin = palin('aeiouoiea')
+print(isPalin)
+
+def palinNumber(num):
+    numm = num
+    rev = 0
+    while num > 0:
+        rem = num % 10
+        num = int(num/10)
+        rev = rev *10 + rem
+    if numm == rev:
+        return True
+    else:
+        return False
+
+isPalin = palinNumber(1221)
+print(isPalin)
