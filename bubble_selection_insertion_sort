@@ -1,0 +1,50 @@
+def bubbleSort(aList):
+    for num in range(1, len(aList)):
+        for ind in range((len(aList))-num):
+            if aList[ind] > aList[ind+1]:
+                temp = aList[ind]
+                aList[ind] = aList[ind+1]
+                aList[ind+1] = temp
+            else:
+                continue
+    return(aList)
+
+newList = bubbleSort([2,4,1,6,2,8,8,1])
+print(newList)
+
+### [1, 1, 2, 2, 4, 6, 8, 8]
+
+def selectionSort(aList):
+    for i in range(len(aList)):
+        minn = float('inf')
+        minfound = False
+        minIndex = 0
+        for num in aList[i:]:
+            if num < minn:
+                minn = num
+                minfound = True
+                minIndex = aList[i:].index(minn)
+                minIndex = minIndex + i 
+        if minfound:
+            aList[i], aList[minIndex] = aList[minIndex], aList[i]
+    return(aList)
+
+sortedList = selectionSort([2,4,1,6,2,8,8,1])
+print(sortedList)
+
+### [1, 1, 2, 2, 4, 6, 8, 8]
+
+def insertionSort(aList):
+    for i in range(1, len(aList)):
+        key = aList[i]
+        j = i-1
+        while j>=0 and key < aList[j]:
+            aList[j+1] = aList[j]
+            j -= 1
+        aList[j+1] = key
+    return(aList)
+
+sortedList = insertionSort([2,4,1,6,2,8,8,1])
+print(sortedList)
+
+### [1, 1, 2, 2, 4, 6, 8, 8]
