@@ -1,0 +1,41 @@
+def binarySearch(blist, val):
+    low = 0
+    high = len(blist) - 1
+    mid = int((high+low)/2)
+    left = low
+    right = high
+    while True:
+        print(blist[mid])
+        if blist[mid] == val:
+            return True
+        elif blist[mid] > val:
+            high = mid - 1
+        else:
+            low = mid + 1
+            
+        mid = int((high+low)/2)
+        
+        if (mid < low) or (mid > high):
+            break
+        if left == right and blist[mid] != val:
+            break
+    return False
+
+found = binarySearch([1,2,3,4,5,6,7,8,9], 1)
+print(found)
+
+def rec_binarySearch(blist, val):
+    if len(blist) == 0:
+        return False
+    mid = int(len(blist)/2)
+    if blist[mid] == val:
+        return True
+    else:
+        if blist[mid] > val:
+            return rec_binarySearch(blist[:mid-1], val)
+        else:
+            return rec_binarySearch(blist[mid+1:], val)
+
+        
+found = binarySearch([1,2,3,4,5,6,7,8,9], 10)
+print(found)
