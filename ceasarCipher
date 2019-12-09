@@ -1,0 +1,35 @@
+def ceasarCipher(text, key, mode):
+    encrypted = ''
+    if mode == 'd':
+        key = -key
+    for char in text:
+        if char.isalpha():
+            shift_key = key % 26
+            num  = ord(char)
+            num = num+shift_key
+            if char.isupper():
+                if (num > ord('Z')): 
+                    num = num - 26
+                elif num < ord('A'):
+                     num += 26
+            elif char.islower():
+                if(num > ord('z')):
+                    num -= 26
+                elif num < ord('a'):
+                    num += 26
+            encrypted += chr(num)
+        elif char.isdigit():
+            digit_key = key % 10
+            num = ord(char)
+            num += digit_key
+            if not chr(num).isdigit():
+                num = num - 10
+            encrypted += chr(num)
+        else:
+            encrypted += char
+    return(encrypted)
+
+cipher = ceasarCipher('qwevbta!@#$12398yyYY', 25, 'e')
+print(cipher)
+
+### pvduasz!@#$67843xxXX  ###
