@@ -43,7 +43,6 @@ class linkedList:
         else:
             for node in nodeList:
                 self.delete_key(node)
-            for node in nodeList:
                 self.insert_end(node)
             return(self.head)
                 
