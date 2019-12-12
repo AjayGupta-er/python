@@ -38,7 +38,7 @@ class linkedList:
                 nodeList.append(temp.data)
             temp = temp.next
         if len(nodeList) == 0:
-            print("No element find with key")
+            print("No element found with key: {}".format(key))
             return
         else:
             for node in nodeList:
