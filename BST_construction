@@ -1,0 +1,52 @@
+class Node:
+    def __init__(self, val):
+        self.data= val
+        self.left= None
+        self.right= None
+
+class binaryTree:
+    def __init__(self):
+        self.root = None
+        self.inorder_list = []
+        
+    def insert_from_list(self, dataList):
+        node = self.root
+        
+        for val in dataList:
+            newNode = Node(val)
+            if val < node.data:
+                node.left = newNode
+                node = newNode
+            else:
+                node.right = newNode
+                node = newNode
+    def insert_single_node(self,val):
+        newNode = Node(val)
+        node = self.root
+        
+        while node is not None:
+            temp = node
+            if val < node.data:
+                node = node.left
+            else:
+                node = node.right
+        if val < temp.data:
+            temp.left = newNode
+        else:
+            temp.right = newNode
+        print(node)
+        
+                
+    def inorderTraverse(self, node):
+        if node is not None:
+            self.inorderTraverse(node.left)
+            print(node.data)
+            self.inorderTraverse(node.right)
+            
+if __name__ == '__main__':
+    tree = binaryTree()
+    tree.root = Node(1)
+    tree.insert_from_list([4, 6, 7, 2, 1])
+    tree.inorderTraverse(tree.root)
+    tree.insert_single_node(3)
+    tree.inorderTraverse(tree.root)
