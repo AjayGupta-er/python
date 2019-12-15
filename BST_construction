@@ -46,18 +46,31 @@ class binaryTree:
     def is_bst(self, node):
         left = True
         right = True
-        if node is None and node.left is None and node.right is None:
+        if node is None:
             left = right= True
-        while node.left is not None:
+        elif node.left is None:
+            return True
+        elif node.right is None:
+            return True
+        else:
             if (node.left.data > node.data):
                 left = False
             else:
                 return(self.is_bst(node.left))
-        while node.right is not None:
             if (node.right.data < node.data):
                 return False
             else:
                 return (self.is_bst(node.right))
+        #while node.left is not None:
+        #    if (node.left.data > node.data):
+        #        left = False
+        #    else:
+        #        return(self.is_bst(node.left))
+        #while node.right is not None:
+        #    if (node.right.data < node.data):
+        #        return False
+        #    else:
+        #        return (self.is_bst(node.right))
         if(left and right):
             return True
         else: 
