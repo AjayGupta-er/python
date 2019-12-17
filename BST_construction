@@ -76,6 +76,18 @@ class binaryTree:
         else: 
             return False
             
+    def bfs(self, node):
+        queue_1 = deque([node])
+        queue_2 = deque([])
+        while (len(queue_1) != 0):
+            oldNode = queue_1.popleft()
+            if oldNode is not None:
+                queue_2.append(oldNode)
+                queue_1.append(oldNode.left)
+                queue_1.append(oldNode.right)
+            if len(queue_2) != 0:
+                print(queue_2.popleft().data)
+            
 if __name__ == '__main__':
     tree = binaryTree()
     tree.root = Node(1)
@@ -88,3 +100,5 @@ if __name__ == '__main__':
         print("BST")
     else:
         print("Not BST")
+        
+    tree.bfs(tree.root)
