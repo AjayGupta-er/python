@@ -34,6 +34,17 @@ class binaryTree:
                 queue_1.append(oldNode.right)
             if len(queue_2) != 0:
                 print(queue_2.popleft().data)
+    def invert(self, node):
+        while node is not None:
+            node = node.left
+            node = node.right
+            node.left, node.right = node.right, node.left
+    def invert_rec(self, node):
+        if node is None:
+            return
+        self.invert_rec(node.left)
+        self.invert_rec(node.right)
+        node.left, node.right = node.right, node.left
             
     
 tree = binaryTree()
@@ -53,3 +64,7 @@ print("Pre order Traverse")
 tree.preOrderTraverse(tree.root)
 print("Breadth First search: BFS")
 tree.bfs(tree.root)
+tree.invert(tree.root)
+tree.bfs(tree.root)
+#tree.invert_rec(tree.root)
+#tree.bfs(tree.root)
