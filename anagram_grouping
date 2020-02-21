@@ -1,0 +1,13 @@
+def anagram_rec(elm, array, anagramList):
+    if len(array) == 0:
+        return
+    for ele in array:
+        if sorted(ele) == sorted(elm):
+            anagramList.append([elm, ele])
+    anagram_rec(array[0], array[1:], anagramList)
+    return(anagramList)
+    
+array=['lump', 'eat','me', 'eta', 'em', 'plum']
+anagramList = []
+ana = anagram_rec(array[0], array[1:], anagramList)
+print(ana)
