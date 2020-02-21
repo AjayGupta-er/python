@@ -1,0 +1,305 @@
+from collections import deque
+
+class Node:
+    def __init__(self, val):
+        self.data= val
+        self.left= None
+        self.right= None
+
+class binaryTree:
+    def __init__(self):
+        self.root = None
+        self.inorder_list = []
+        
+    def insert_from_list(self, dataList):
+        node = self.root
+        
+        for val in dataList:
+            newNode = Node(val)
+            node = self.root
+            while node is not None:
+                temp = node
+                if val < node.data:
+                    node = node.left
+                else:
+                    node = node.right
+            if val < temp.data:
+                temp.left = newNode
+            else:
+                temp.right = newNode
+
+    def insert_single_node(self,val):
+        newNode = Node(val)
+        node = self.root
+        
+        while node is not None:
+            temp = node
+            if val < node.data:
+                node = node.left
+            else:
+                node = node.right
+        if val < temp.data:
+            temp.left = newNode
+        else:
+            temp.right = newNode
+                
+    def inorderTraverse(self, node):
+        if node is not None:
+            self.inorderTraverse(node.left)
+            print(node.data)
+            self.inorderTraverse(node.right)
+            
+    def is_bst(self, node):
+        left = True
+        right = True
+        if node is None:
+            left = right= True
+        if node.left is None:
+            return True
+        if node.right is None:
+            return True
+        if (node.left.data > node.data):
+            left = False
+        else:
+            return(self.is_bst(node.left))
+        if (node.right.data < node.data):
+            return False
+        else:
+            return (self.is_bst(node.right))
+        if(left and right):
+            return True
+        else: 
+            return False
+        
+    def bfs(self, node):
+        queue_1 = deque([node])
+        queue_2 = deque([])
+        while (len(queue_1) != 0):
+            oldNode = queue_1.popleft()
+            if oldNode is not None:
+                queue_2.append(oldNode)
+                queue_1.append(oldNode.left)
+                queue_1.append(oldNode.right)
+            if len(queue_2) != 0:
+                print(queue_2.popleft().data)
+    
+    def bfs_withLevel(self, node):
+        queue_1 = deque([node])
+        level = 1
+        queue_1.append(level)
+        while (len(queue_1) != 0):
+            oldNode = queue_1.popleft()
+            level = queue_1.popleft()
+            print("Node, Level: ", oldNode.data, level)
+            if oldNode.left is not None:
+                queue_1.append(oldNode.left)
+                queue_1.append(level+1)
+            if oldNode.right is not None:
+                queue_1.append(oldNode.right)
+                queue_1.append(level+1)
+
+    def bfs_with_spiral(self, node):
+        queue_1 = deque([node])
+        queue_2 = deque()
+        while ((len(queue_1) != 0) or len(queue_2) != 0):
+            while(len(queue_1) != 0):
+                oldNode = queue_1.popleft()
+                if oldNode is not None:
+                    print("Node from loop1:", oldNode.data)
+                    if(oldNode.left != None):
+                        queue_2.append(oldNode.left)
+                    if(oldNode.right != None):
+                        queue_2.append(oldNode.right)
+            while(len(queue_2) != 0):
+                oldNode = queue_2.pop()
+                if oldNode is not None:
+                    print("Node from loop2:", oldNode.data)
+                    if(oldNode.right != None):
+                        queue_1.appendleft(oldNode.right)
+                    if(oldNode.left != None):
+                        queue_1.appendleft(oldNode.left)
+                
+    def invert(self, node):
+        while node is not None:
+            node = node.left
+            node = node.right
+            node.left, node.right = node.right, node.left
+    def invert_rec(self, node):
+        if node is None:
+            return
+        self.invert_rec(node.left)
+        self.invert_rec(node.right)
+        node.left, node.right = node.right, node.left
+        
+            
+            
+
+INT_MAX = 4294967296
+INT_MIN = -4294967296
+def isBST(node):
+    return(isBSTUtil(node, INT_MIN, INT_MAX))
+
+def isBSTUtil(node, bst_min, bst_max):
+    if node is None:
+        return True
+    if node.data < bst_min or node.data > bst_max: 
+        return False
+    return(isBSTUtil(node, bst_min, node.data-1) and (node, node.data+1, bst_max))
+
+def is_bst2(node, min, max):
+    if node is None:
+        return True
+    if node.data < min or node.data > max:
+        return False
+    return is_bst2(node.left, min, node.data - 1) and is_bst2(node.right, node.data + 1, max)
+
+def lca(node, n1, n2):
+    if (node == None):
+        return node
+    if node.data > max(n1, n2):
+        return lca(node.left, n1, n2)
+    elif node.data < min(n1, n2):
+        return lca(node.right, n1, n2)
+    else:
+        return node
+            
+class heapTree:
+    def __init__(self):
+        self.root = None
+        
+    def min_heap(self, heapArray):
+
+        for i in range(len(heapArray)):
+            if i == 0:
+                newNode = Node(heapArray[i])
+                self.root = newNode
+            elif i%2 != 0:
+                newNode = Node(heapArray[i])
+                temp = self.root
+                while((temp.left != None) and (temp.right != None)):
+                    temp = temp.left
+                if(temp.left is None):
+                    temp.left = newNode
+                elif(temp.right is None):
+                    temp.right = newNode
+                while temp.data > newNode.data:
+                    temp.data, newNode.data = newNode.data, temp.data
+            else:
+                newNode = Node(heapArray[i])
+                temp = self.root
+                while((temp.left != None) and (temp.right != None)):
+                    temp = temp.right
+                if(temp.left is None):
+                    temp.left = newNode
+                elif(temp.right is None):
+                    temp.right = newNode
+                while temp.data > newNode.data:
+                    temp.data, newNode.data = newNode.data, temp.data
+    def max_heap(self, heapArray):
+
+        for i in range(len(heapArray)):
+            if i == 0:
+                newNode = Node(heapArray[i])
+                self.root = newNode
+            elif i%2 != 0:
+                newNode = Node(heapArray[i])
+                temp = self.root
+                while((temp.left != None) and (temp.right != None)):
+                    temp = temp.left
+                if(temp.left is None):
+                    temp.left = newNode
+                elif(temp.right is None):
+                    temp.right = newNode
+                while temp.data < newNode.data:
+                    temp.data, newNode.data = newNode.data, temp.data
+            else:
+                newNode = Node(heapArray[i])
+                temp = self.root
+                while((temp.left != None) and (temp.right != None)):
+                    temp = temp.right
+                if(temp.left is None):
+                    temp.left = newNode
+                elif(temp.right is None):
+                    temp.right = newNode
+                while temp.data < newNode.data:
+                    temp.data, newNode.data = newNode.data, temp.data
+    def inorderTraverse(self, node):
+        if node is not None:
+            self.inorderTraverse(node.left)
+            print(node.data)
+            self.inorderTraverse(node.right)
+    def bfs(self, node):
+        queue_1 = deque([node])
+        queue_2 = deque([])
+        while (len(queue_1) != 0):
+            oldNode = queue_1.popleft()
+            if oldNode is not None:
+                queue_2.append(oldNode)
+                queue_1.append(oldNode.left)
+                queue_1.append(oldNode.right)
+            if len(queue_2) != 0:
+                print(queue_2.popleft().data)
+                    
+                    
+if __name__ == '__main__':
+    tree = binaryTree()
+    tree.root = Node(10)
+    #tree.insert_from_list([ 2, 7, 1,3,6,9])
+    tree.insert_from_list([5,15,3,7,13,17,2,4,6,8,12,14,16,18])
+    LCA = lca(tree.root, 2,9)
+    print("Tree LCA:")
+    print(LCA.data)
+    print("="*10, '\n')
+    print("Tree Inorder Traverse:", '\n')
+    tree.inorderTraverse(tree.root)
+    print("="*10, '\n')
+    #tree.insert_single_node(8)
+    #tree.insert_single_node(10)
+    #tree.insert_single_node(3)
+    #tree.insert_single_node(9)
+    #tree.insert_single_node(200)
+    
+    #tree.inorderTraverse(tree.root)
+    
+    print("Checking if Tree is BST:", '\n')
+    if tree.is_bst(tree.root):
+        print("BST")
+    else:
+        print("Not BST")
+    print("="*10, '\n')
+    print("Tree BFS:", '\n')
+    tree.bfs(tree.root)
+    
+    print("="*10, '\n')
+    print("Printing BFS with its Levels:")
+    tree.bfs_withLevel(tree.root)
+    
+    print("="*10, '\n')
+    print("Printing BFS in spiral order with its Levels:")
+    tree.bfs_with_spiral(tree.root)
+    
+    print("="*10, '\n')
+    print("Inverting a Tree:", '\n')
+    #tree.invert(tree.root)
+    tree.invert_rec(tree.root)
+    tree.inorderTraverse(tree.root)
+    
+    
+    print('\n')
+    minHeap = heapTree()
+    minHeap.min_heap([4, 2, 7, 1, 3,6,9])
+    print("Min Heap Inorder Traversing:", '\n')
+    minHeap.inorderTraverse(minHeap.root)
+    print("="*10, '\n')
+    print("Min Heap BFS:", '\n')
+    minHeap.bfs(minHeap.root)
+    print("="*10)
+    
+    maxHeap = heapTree()
+    maxHeap.max_heap([4, 2, 7, 1, 3,6,9])
+    print("Max Heap Inorder Traversing:", '\n')
+    maxHeap.inorderTraverse(maxHeap.root)
+    print("="*10, '\n')
+    print("Max Heap BFS:", '\n')
+    maxHeap.bfs(maxHeap.root)
+    print("="*10)
