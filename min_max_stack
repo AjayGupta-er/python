@@ -1,0 +1,46 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class Stack:
+    def __init__(self):
+        self.top = None
+        self.bottom = None
+        self.min = 0
+    def push_stack(self, item):
+        newNode = Node(item)
+        if self.top == None:
+            self.top = newNode
+            newNode.next = self.bottom
+            self.min = item
+        elif self.min > item:
+            self.top, newNode.next = newNode, self.top
+            self.min = item
+        else:
+            self.top, newNode.next = newNode, self.top
+    def pop(self):
+        if self.top == None:
+            print("Stack is empty")
+        else:
+            print(self.top.data)
+            self.top = self.top.next
+    def getMin(self):
+        if self.top == None:
+            print("Stack is empty")
+        else:
+            print(self.min)
+    def printStack(self):
+        temp = self.top
+        while temp is not None:
+            print(temp.data)
+            temp = temp.next
+            
+stack = Stack()
+stack.push_stack(2)
+stack.push_stack(4)
+stack.push_stack(16)
+stack.push_stack(1)
+stack.push_stack(7)
+stack.printStack()
+print(stack.getMin())
+print(stack.pop())
