@@ -1,0 +1,13 @@
+def triplet_zero_sum(array):
+    triplets = []
+    for elem1 in array:
+        for elem2 in array[1:]:
+            for elem3 in array[2:]:
+                if elem1+elem2+elem3 == 0:
+                    triplets.append([elem1, elem2, elem3])
+    return triplets
+
+if __name__ =='__main__':
+    zeroTriplet = triplet_zero_sum([6,4,-10,-5,-1])
+
+print(zeroTriplet)
