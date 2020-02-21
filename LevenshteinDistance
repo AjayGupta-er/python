@@ -1,0 +1,21 @@
+def levenshteinDistance(string1, string2):
+    len1 = len(string1)
+    len2 = len(string2)
+    counter = 0
+    if len1<len2:
+        shorterStr = len1
+    else:
+        shorterStr = len2
+    
+    for i in range(shorterStr):
+        if string1[i] != string2[i]:
+            counter += 1
+        else:
+            continue
+    if len1 != len2:
+        counter = counter + abs(len1-len2)
+        return(counter)
+    else:
+        return(counter)
+   
+   print(levenshteinDistance('test', 'testing'))
