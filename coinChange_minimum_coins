@@ -1,0 +1,11 @@
+def min_coinChange(total, change, coinNumber):
+    table_coinChange = [[float('inf') for i in range(0,total+1)] for j in range(len(change))]
+    for i in range(len(change)):
+        table_coinChange[i][0] = 0
+    for i in range(coinNumber):
+        for j in range(total+1):
+            if (change[i]>j):
+                table_coinChange[i][j] = table_coinChange[i-1][j]
+            else:
+                table_coinChange[i][j] = min(table_coinChange[i-1][j], 1+table_coinChange[i][j-change[i]])
+    return(table_coinChange[coinNumber-1][total])
