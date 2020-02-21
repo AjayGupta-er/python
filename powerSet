@@ -1,0 +1,22 @@
+chList = []
+def powerSet(charList, newList):
+    if charList == []:
+        return([newList])
+    else:
+        temp = []
+        for i in powerSet(charList[1:], newList+[charList[0]]):
+            temp.append(i)
+        for i in powerSet(charList[1:], newList):
+            temp.append(i)
+        return temp
+       
+def powerSet_1(charList):
+    result = [[]]
+    for x in charList:
+        newsubset = [subset + [x] for subset in result]
+        result.extend(newsubset)
+    return(result)
+
+
+print(powerSet([1,2,3], []))
+print(powerSet_1(['a', 'b', 'c']))
