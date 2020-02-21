@@ -1,0 +1,28 @@
+import paramiko
+from paramiko import SSHClient, AutoAddPolicy, RSAKey
+from scp import SCPClient, SCPException
+
+
+class file_transfer:
+    def __init__(self,hostname,username, password):
+        self.sshClient = paramiko.SSHClient()
+        self.sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        self.sshClient.connect(hostname=hostname, username = username, password=password)
+    def get_sftp(self):
+        return(self.sshClient.open_sftp())
+    def transfer(self, localfile, remotepath):
+        self.ftpClient = self.get_sftp()
+        self.ftpClient.put(localfile, remotepath)
+    def ex_command(self, command):
+        stdin, stdout, stderr = self.sshClient.exec_command(command)
+        return(stdin, stdout, stderr)
+    def close_connection(self):
+        self.ftpClient.close()
+        self.sshClient.close()
+
+sshClient = file_transfer('hostname', 'username', 'password')
+sshClient.get_sftp()
+sshClient.transfer('localfile','remotefile')
+stdin, stdout, stderr = sshClient.ex_command('command')
+print(stdout.read())
+sshClient.close_connection()
