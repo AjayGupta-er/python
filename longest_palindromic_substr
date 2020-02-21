@@ -1,0 +1,18 @@
+def longest_substr(string1, lenStr, top, bot, palinTop, palinBot):
+    if lenStr >= len(string1)/2:
+        if(palinTop != palinBot):
+            if(palinTop == 0):
+                print("Longest Palindrome String:",string1[palinTop:palinBot+1])
+            else:
+                print("Longest Palindrome String:",string1[palinTop+1:palinBot])
+            return
+        else:
+            print("No palindrome found")
+            return
+    if string1[top] != string1[bot-1]:
+        palinTop += 1
+        palinBot -= 1
+    longest_substr(string1, lenStr+1, top+1, bot-1, palinTop, palinBot)
+    
+string1 = 'aeiouuoiea' #"forgeeksskeegfor"
+longest_substr(string1, 0, 0, len(string1),  0, len(string1)-1)
