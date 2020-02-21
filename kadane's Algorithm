@@ -1,0 +1,9 @@
+def kanades(array):
+    max_current = max_global = array[0]
+    for i in range(1, len(array)):
+        max_current = max(array[i], array[i]+max_current)
+        if max_current > max_global:
+            max_global = max_current
+    return(max_global)
+    
+    print(kanades([-2,-3,4,-1,-2,1,5,-3]))
