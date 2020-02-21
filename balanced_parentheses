@@ -1,0 +1,59 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class Stack:
+    def __init__(self):
+        self.top = None
+        self.bottom = None
+        self.min = 0
+    def push_stack(self, item):
+        newNode = Node(item)
+        if self.top == None:
+            self.top = newNode
+            newNode.next = self.bottom
+            self.min = item
+        elif self.min > item:
+            self.top, newNode.next = newNode, self.top
+            self.min = item
+        else:
+            self.top, newNode.next = newNode, self.top
+    def pop(self):
+        if self.top == None:
+            print("Stack is empty")
+        else:
+            print(self.top.data)
+            self.top = self.top.next
+    def getMin(self):
+        if self.top == None:
+            print("Stack is empty")
+        else:
+            print(self.min)
+    def printStack(self):
+        temp = self.top
+        while temp is not None:
+            print(temp.data)
+            temp = temp.next
+   
+   charStack = Stack()
+def balanced_parantheses(string1):
+    count = 0
+    if string1 == '':
+        print("empty string")
+        return
+    for char in string1:
+        if char in ['(', '{', '[']:
+            charStack.push_stack(char)
+            count += 1
+        elif (char in [')', '}', ']']) and (count>0):
+            charStack.pop()
+            count -= 1
+        elif count==0:
+            count -= 1
+    if count != 0:
+        print("parantheses unbalanced")
+    else:
+        print(count, "parantheses balanced")
+        charStack.printStack()
+
+balanced_parantheses("{[]{()}}{}")
