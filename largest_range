@@ -1,0 +1,17 @@
+import time
+
+def largest_range(array):
+    larray = []
+    array.sort()
+    for i in range(len(array)-1):
+        if array[i+1] -array[i] > 1:
+            larray.append(array[i])
+            break
+        else:
+            larray.append(array[i])
+    return((larray[0], larray[-1]))
+    
+t1 = time.time()
+print(largest_range([1,11,3,0,15,5,2,4,10,7,12,6]))
+t2 = time.time()
+print(t2-t1)
